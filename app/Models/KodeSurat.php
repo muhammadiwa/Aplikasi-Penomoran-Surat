@@ -9,5 +9,10 @@ class KodeSurat extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $table = 'kode_surat';
+
+    protected $fillable = [
+        'nama',
+        'kode_surat',
+    ];
 }

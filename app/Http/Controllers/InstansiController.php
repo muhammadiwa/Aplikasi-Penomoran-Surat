@@ -14,7 +14,8 @@ class InstansiController extends Controller
      */
     public function index()
     {
-        //
+        $instansi = Instansi::all();
+        return view('instansi.index', compact('instansi'));
     }
 
     /**
@@ -24,7 +25,7 @@ class InstansiController extends Controller
      */
     public function create()
     {
-        //
+        return view('instansi.create');
     }
 
     /**
@@ -35,7 +36,13 @@ class InstansiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
+
+        Instansi::create($validatedData);
+
+        return redirect()->route('instansi.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
     /**
@@ -57,7 +64,7 @@ class InstansiController extends Controller
      */
     public function edit(Instansi $instansi)
     {
-        //
+        return view('instansi.edit', compact('instansi'));
     }
 
     /**
@@ -69,7 +76,13 @@ class InstansiController extends Controller
      */
     public function update(Request $request, Instansi $instansi)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $instansi->update($validatedData);
+
+        return redirect()->route('instansi.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**
@@ -80,6 +93,8 @@ class InstansiController extends Controller
      */
     public function destroy(Instansi $instansi)
     {
-        //
+        $instansi->delete();
+
+        return redirect()->route('instansi.index')->with('success', 'Data berhasil dihapus.');
     }
 }

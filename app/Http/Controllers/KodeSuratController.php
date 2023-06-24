@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Surat;
+use App\Models\KodeSurat;
 use Illuminate\Http\Request;
 
-class SuratController extends Controller
+class KodeSuratController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class SuratController extends Controller
      */
     public function index()
     {
-        $surat = Surat::all();
-        return view('surat.index', compact('surat'));
+        $kodesurat = KodeSurat::all();
+        return view('kodesurat.index', compact('kodesurat'));
     }
 
     /**
@@ -25,7 +25,7 @@ class SuratController extends Controller
      */
     public function create()
     {
-        return view('surat.create');
+        return view('kodesurat.create');
     }
 
     /**
@@ -37,21 +37,22 @@ class SuratController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required',
+            'nama' => 'required',
+            'kode_surat' => 'required',
         ]);
 
-        Surat::create($validatedData);
+        KodeSurat::create($validatedData);
 
-        return redirect()->route('surat.index')->with('success', 'Data berhasil ditambahkan.');
+        return redirect()->route('kodesurat.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Surat  $surat
+     * @param  \App\Models\KodeSurat  $kodesurat
      * @return \Illuminate\Http\Response
      */
-    public function show(Surat $surat)
+    public function show(KodeSurat $kodesurat)
     {
         //
     }
@@ -59,42 +60,43 @@ class SuratController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Surat  $surat
+     * @param  \App\Models\KodeSurat  $kodesurat
      * @return \Illuminate\Http\Response
      */
-    public function edit(Surat $surat)
+    public function edit(KodeSurat $kodesurat)
     {
-        return view('surat.edit', compact('surat'));
+        return view('kodesurat.edit', compact('kodesurat'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Surat  $surat
+     * @param  \App\Models\KodeSurat  $kodesurat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Surat $surat)
+    public function update(Request $request, KodeSurat $kodesurat)
     {
         $validatedData = $request->validate([
-            'name' => 'required',
+            'nama' => 'required',
+            'kode_surat' => 'required',
         ]);
 
-        $surat->update($validatedData);
+        $kodesurat->update($validatedData);
 
-        return redirect()->route('surat.index')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('kodesurat.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Surat  $surat
+     * @param  \App\Models\KodeSurat  $kodesurat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Surat $surat)
+    public function destroy(KodeSurat $kodesurat)
     {
-        $surat->delete();
+        $kodesurat->delete();
 
-        return redirect()->route('surat.index')->with('success', 'Data berhasil dihapus.');
+        return redirect()->route('kodesurat.index')->with('success', 'Data berhasil dihapus.');
     }
 }

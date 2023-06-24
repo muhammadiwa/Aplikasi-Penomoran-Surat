@@ -9,5 +9,9 @@ class Instansi extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $table = 'instansi';
+
+    protected $fillable = [
+        'name',
+    ];
 }

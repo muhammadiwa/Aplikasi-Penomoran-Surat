@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,7 +18,6 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('/sbadmin2/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
@@ -28,75 +26,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">ADE Group</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="/dashboard">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Data Master</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Master Components:</h6>
-                        <a class="collapse-item" href="/kategori">Data Perusahaan</a>
-                        <a class="collapse-item" href="/subkategori">Data Instansi</a>
-                        <a class="collapse-item" href="/slider">Data Kode Surat</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="/laporan">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Surat</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ route('logout') }}">
-                    <i class="fas fa-fw fa-sign-out-alt"></i>
-                    <span>Logout</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
+        @include('layouts.sidebar')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -154,13 +84,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; ADE Group 2023</span>
-                    </div>
-                </div>
-            </footer>
+            @include('layouts.footer')
             <!-- End of Footer -->
 
         </div>
@@ -194,6 +118,7 @@
         </div>
     </div>
 
+    
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('/sbadmin2/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -210,6 +135,23 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('/sbadmin2/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('/sbadmin2/js/demo/chart-pie-demo.js') }}"></script>
+    <script>
+    // Mendapatkan semua elemen menu sidebar
+    var sidebarMenus = document.querySelectorAll('.sidebar .nav-link');
+
+    // Mengaitkan event click pada setiap elemen menu
+    sidebarMenus.forEach(function(menu) {
+        menu.addEventListener('click', function() {
+            // Menghapus kelas 'active' dari semua elemen menu
+            sidebarMenus.forEach(function(item) {
+                item.classList.remove('active');
+            });
+
+            // Menambahkan kelas 'active' ke elemen menu yang diklik
+            this.classList.add('active');
+        });
+    });
+    </script>
 
 </body>
 

@@ -7,79 +7,55 @@ use Illuminate\Http\Request;
 
 class PerusahaanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('perusahaan');
+        $perusahaan = Perusahaan::all();
+        return view('perusahaan.index', compact('perusahaan'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('perusahaan.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'kode_pt' => 'required',
+        ]);
+
+        Perusahaan::create($validatedData);
+
+        return redirect()->route('perusahaan.index')->with('success', 'Perusahaan berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Perusahaan  $perusahaan
-     * @return \Illuminate\Http\Response
-     */
     public function show(Perusahaan $perusahaan)
     {
-        //
+        return view('perusahaan.show', compact('perusahaan'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Perusahaan  $perusahaan
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Perusahaan $perusahaan)
     {
-        //
+        return view('perusahaan.edit', compact('perusahaan'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Perusahaan  $perusahaan
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Perusahaan $perusahaan)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'kode_pt' => 'required',
+        ]);
+
+        $perusahaan->update($validatedData);
+
+        return redirect()->route('perusahaan.index')->with('success', 'Perusahaan berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Perusahaan  $perusahaan
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Perusahaan $perusahaan)
     {
-        //
+        $perusahaan->delete();
+
+        return redirect()->route('perusahaan.index')->with('success', 'Perusahaan berhasil dihapus.');
     }
 }
