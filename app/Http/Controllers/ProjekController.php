@@ -61,10 +61,8 @@ class ProjekController extends Controller
         // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya untuk id_perusahaan = 2
         $lastOr = $lastProjek ? intval(substr($lastProjek->id_projek, 4, 2)) : -1;
         $newOr = $lastOr < 0 ? 0 : ($lastOr + 1);
-
+         // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya untuk id_perusahaan = 2
         $lastOrders = $lastProjek ? intval(substr($lastProjek->id_projek, 0, 2)) : -1;
-
-        // Menambahkan 1 pada urutan terakhir untuk mendapatkan urutan proyek baru
         $newOrders = $lastOrders + 1;
 
         // Mendapatkan dua digit terakhir dari tahun saat ini
@@ -72,16 +70,21 @@ class ProjekController extends Controller
 
         // Membentuk ID proyek berdasarkan id_perusahaan
         $projectId = '';
+        $noProject = '';
 
         if ($idPerusahaan == 1) {
-            $projectId = $currentYear . '/AMI/' . sprintf('%03d', $newOrder);
+            $projectId = $currentYear . '/AMI/' . sprintf('%02d', $newOrder);
+            $noProject = sprintf('%02d', $newOrder);
         } elseif ($idPerusahaan == 2) {
             $projectId = 'DPJ/' . sprintf('%02d', $newOr) . '/' . $currentYear;
+            $noProject = sprintf('%02d', $newOr);
         } elseif ($idPerusahaan == 3) {
             $projectId = sprintf('%02d', $newOrders) . '/EPSI/' . $currentYear;
+            $noProject = sprintf('%02d', $newOrders);
         }
 
         $validatedData['id_projek'] = $projectId;
+        $validatedData['no_projek'] = $noProject;
 
         Projek::create($validatedData);
 

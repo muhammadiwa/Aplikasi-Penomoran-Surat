@@ -44,7 +44,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="/laporan">
+        <a class="nav-link" href="{{ route('surat.index') }}">
             <i class="fas fa-fw fa-book"></i>
             <span>Surat</span></a>
     </li>

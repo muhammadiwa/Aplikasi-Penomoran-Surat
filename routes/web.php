@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SuratController;
 use App\Http\Controllers\ProjekController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\DashboardController;
@@ -49,5 +50,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/projek/{projek}/edit', [ProjekController::class, 'edit'])->name('projek.edit');
     Route::put('/projek/{projek}', [ProjekController::class, 'update'])->name('projek.update');
     Route::delete('/projek/{projek}', [ProjekController::class, 'destroy'])->name('projek.destroy');
+    //Surat
+    Route::get('/surat', [SuratController::class, 'index'])->name('surat.index');
+    Route::get('/surat/create', [SuratController::class, 'create'])->name('surat.create');
+    Route::post('/surat', [SuratController::class, 'store'])->name('surat.store');
+    Route::get('/surat/{surat}/edit', [SuratController::class, 'edit'])->name('surat.edit');
+    Route::put('/surat/{surat}', [SuratController::class, 'update'])->name('surat.update');
+    Route::delete('/surat/{surat}', [SuratController::class, 'destroy'])->name('surat.destroy');
 });
 
