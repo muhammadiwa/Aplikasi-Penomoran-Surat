@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('kode_surat')->constrained('kode_surat');
             $table->foreignId('id_projek')->constrained('projek');
             $table->string('no_urut');
-            $table->foreignId('kode_pt')->constrained('perusahaan');
+            $table->foreignId('id_perusahaan')->constrained('perusahaan');
             $table->foreignId('id_instansi')->constrained('instansi');
             $table->date('bulan_pengajuan');
             $table->date('tahun_pengajuan');

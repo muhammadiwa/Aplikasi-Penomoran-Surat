@@ -37,7 +37,7 @@
                             @foreach($projek as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->id_projek }}</td>
                                     <td>{{ $item->nama }}</td>
                                     <td>{{ $item->instansi->name }}</td>
                                     <td>{{ $item->perusahaan->nama }}</td>

@@ -47,43 +47,46 @@ class ProjekController extends Controller
             'keterangan' => 'required',
         ]);
 
-        // Mendapatkan urutan terakhir proyek dari database
-        $lastProjek = Projek::where('id_perusahaan', $validatedData['id_perusahaan'])
-            ->orderBy('id', 'desc')
+        // Mendapatkan id_perusahaan
+        $idPerusahaan = $validatedData['id_perusahaan'];
+
+        // Mendapatkan urutan terakhir proyek dari database berdasarkan id_perusahaan
+        $lastProjek = Projek::where('id_perusahaan', $idPerusahaan)
+            ->orderBy('id_projek', 'desc')
             ->first();
-        $lastOrder = $lastProjek ? intval(substr($lastProjek->id, 0, 2)) : 0;
+
+        // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya
+        $lastOrder = $lastProjek ? intval(substr($lastProjek->id_projek, -3)) : -1;
+        $newOrder = $lastOrder + 1;
+        // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya untuk id_perusahaan = 2
+        $lastOr = $lastProjek ? intval(substr($lastProjek->id_projek, 4, 2)) : -1;
+        $newOr = $lastOr < 0 ? 0 : ($lastOr + 1);
+
+        $lastOrders = $lastProjek ? intval(substr($lastProjek->id_projek, 0, 2)) : -1;
 
         // Menambahkan 1 pada urutan terakhir untuk mendapatkan urutan proyek baru
-        $newOrder = $lastOrder + 1;
-        $formattedOrder = sprintf('%02d', $newOrder);
+        $newOrders = $lastOrders + 1;
 
         // Mendapatkan dua digit terakhir dari tahun saat ini
         $currentYear = date('y');
 
         // Membentuk ID proyek berdasarkan id_perusahaan
-        $idPerusahaan = $validatedData['id_perusahaan'];
+        $projectId = '';
 
-        switch ($idPerusahaan) {
-            case 1:
-                $projectId = $formattedOrder . '/AMI/000';
-                break;
-            case 2:
-                $projectId = '00/EPSI/' . $currentYear;
-                break;
-            case 3:
-                $projectId = 'DPJ/00/' . $currentYear;
-                break;
-            default:
-                $projectId = '';
+        if ($idPerusahaan == 1) {
+            $projectId = $currentYear . '/AMI/' . sprintf('%03d', $newOrder);
+        } elseif ($idPerusahaan == 2) {
+            $projectId = 'DPJ/' . sprintf('%02d', $newOr) . '/' . $currentYear;
+        } elseif ($idPerusahaan == 3) {
+            $projectId = sprintf('%02d', $newOrders) . '/EPSI/' . $currentYear;
         }
 
-        $validatedData['id'] = $projectId;
+        $validatedData['id_projek'] = $projectId;
 
         Projek::create($validatedData);
 
         return redirect()->route('projek.index')->with('success', 'Data berhasil ditambahkan.');
     }
-
     /**
      * Display the specified resource.
      *

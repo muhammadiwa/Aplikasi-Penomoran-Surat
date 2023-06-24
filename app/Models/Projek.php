@@ -15,6 +15,7 @@ class Projek extends Model
 
     protected $fillable = [
         'nama',
+        'id_projek',
         'id_instansi',
         'id_perusahaan',
         'keterangan',
@@ -32,5 +33,4 @@ class Projek extends Model
     {
         return $this->belongsTo(Perusahaan::class, 'id_perusahaan');
     }
-
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjekTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,8 @@ class CreateProjekTable extends Migration
             $table->id();
             $table->string('nama');
             $table->foreignId('id_instansi')->constrained('instansi');
-            $table->foreignId('id_perusahaan')->nullable()->constrained('perusahaan');
+            $table->unsignedBigInteger('id_perusahaan')->nullable();
+            $table->foreign('id_perusahaan')->references('id')->on('perusahaan');   
             $table->string('keterangan');
             $table->timestamps();
         });
@@ -32,4 +33,4 @@ class CreateProjekTable extends Migration
     {
         Schema::dropIfExists('projek');
     }
-}
+};

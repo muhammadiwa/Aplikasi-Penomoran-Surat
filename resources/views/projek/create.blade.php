@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group">
                         <label for="keterangan">Keterangan</label>
-                        <input type="text" class="form-control" id="keterangan" name="keterangan">
+                        <input type="text" class="form-control" id="keterangan" value="-" name="keterangan" required>
                     </div>
                 </div>
                 <div class="card-footer">
