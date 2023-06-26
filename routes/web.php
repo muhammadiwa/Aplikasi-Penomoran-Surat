@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\ProjekController;
+use App\Http\Controllers\TahapanController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KodeSuratController;
@@ -36,6 +37,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/instansi/{instansi}/edit', [InstansiController::class, 'edit'])->name('instansi.edit');
     Route::put('/instansi/{instansi}', [InstansiController::class, 'update'])->name('instansi.update');
     Route::delete('/instansi/{instansi}', [InstansiController::class, 'destroy'])->name('instansi.destroy');
+    Route::delete('/perusahaan/{perusahaan}', [PerusahaanController::class, 'destroy'])->name('perusahaan.destroy');
+    //Instansi
+    Route::get('/tahapan', [TahapanController::class, 'index'])->name('tahapan.index');
+    Route::get('/tahapan/create', [TahapanController::class, 'create'])->name('tahapan.create');
+    Route::post('/tahapan', [TahapanController::class, 'store'])->name('tahapan.store');
+    Route::get('/tahapan/{tahapan}/edit', [TahapanController::class, 'edit'])->name('tahapan.edit');
+    Route::put('/tahapan/{tahapan}', [TahapanController::class, 'update'])->name('tahapan.update');
+    Route::delete('/tahapan/{tahapan}', [TahapanController::class, 'destroy'])->name('tahapan.destroy');
     //Kode Surat
     Route::get('/kodesurat', [KodeSuratController::class, 'index'])->name('kodesurat.index');
     Route::get('/kodesurat/create', [KodeSuratController::class, 'create'])->name('kodesurat.create');

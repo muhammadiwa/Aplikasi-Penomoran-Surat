@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Instansi;
+use App\Models\Tahapan;
 use Illuminate\Http\Request;
 
-class InstansiController extends Controller
+class TahapanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class InstansiController extends Controller
      */
     public function index()
     {
-        $instansi = Instansi::all();
-        return view('instansi.index', compact('instansi'));
+        $tahapan = Tahapan::all();
+        return view('tahapan.index', compact('tahapan'));
     }
 
     /**
@@ -25,7 +25,7 @@ class InstansiController extends Controller
      */
     public function create()
     {
-        return view('instansi.create');
+        return view('tahapan.create');
     }
 
     /**
@@ -37,22 +37,21 @@ class InstansiController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required',
-            'kode_instansi' => 'required',
+            'nama' => 'required',
         ]);
 
-        Instansi::create($validatedData);
+        Tahapan::create($validatedData);
 
-        return redirect()->route('instansi.index')->with('success', 'Data berhasil ditambahkan.');
+        return redirect()->route('tahapan.index')->with('success', 'Data berhasil ditambahkan.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Instansi  $instansi
+     * @param  \App\Models\Tahapan  $tahapan
      * @return \Illuminate\Http\Response
      */
-    public function show(Instansi $instansi)
+    public function show(Tahapan $tahapan)
     {
         //
     }
@@ -60,43 +59,42 @@ class InstansiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Instansi  $instansi
+     * @param  \App\Models\Tahapan  $tahapan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Instansi $instansi)
+    public function edit(Tahapan $tahapan)
     {
-        return view('instansi.edit', compact('instansi'));
+        return view('tahapan.edit', compact('tahapan'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Instansi  $instansi
+     * @param  \App\Models\Tahapan  $tahapan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Instansi $instansi)
+    public function update(Request $request, Tahapan $tahapan)
     {
         $validatedData = $request->validate([
-            'name' => 'required',
-            'kode_instansi' => 'required',
+            'nama' => 'required',
         ]);
 
-        $instansi->update($validatedData);
+        $tahapan->update($validatedData);
 
-        return redirect()->route('instansi.index')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('tahapan.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Instansi  $instansi
+     * @param  \App\Models\Tahapan  $tahapan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Instansi $instansi)
+    public function destroy(Tahapan $tahapan)
     {
-        $instansi->delete();
+        $tahapan->delete();
 
-        return redirect()->route('instansi.index')->with('success', 'Data berhasil dihapus.');
+        return redirect()->route('tahapan.index')->with('success', 'Data berhasil dihapus.');
     }
 }

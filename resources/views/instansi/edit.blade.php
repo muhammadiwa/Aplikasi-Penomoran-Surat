@@ -12,8 +12,12 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label for="nama">Nama Instansi</label>
-                        <input type="text" class="form-control" id="nama" name="nama" value="{{ $instansi->nama }}" required>
+                        <label for="name">Nama Instansi</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ $instansi->name }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="kode_instansi">Kode Instansi</label>
+                        <input type="text" class="form-control" id="kode_instansi" name="kode_instansi" value="{{ $instansi->kode_instansi }}" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                     <a href="{{ route('instansi.index') }}" class="btn btn-secondary">Batal</a>

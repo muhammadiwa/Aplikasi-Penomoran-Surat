@@ -19,15 +19,21 @@ class Projek extends Model
         'id_projek',
         'id_instansi',
         'id_perusahaan',
+        'nilai_pagu',
+        'id_tahapan',
+        'nilai_spk',
+        'budget_limit',
         'keterangan',
     ];
 
-    /**
-     * Menyatakan relasi dengan tabel "instansi".
-     */
     public function instansi()
     {
         return $this->belongsTo(Instansi::class, 'id_instansi');
+    }
+    
+    public function tahapan()
+    {
+        return $this->belongsTo(Tahapan::class, 'id_tahapan');
     }
 
     public function perusahaan()

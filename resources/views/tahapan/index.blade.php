@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar Instansi')
+@section('title', 'Daftar Tahapan')
 
 @section('content')
     <!-- Begin Page Content -->
@@ -12,7 +12,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <a href="{{ route('instansi.create') }}" class="m-0 font-weight-bold btn btn-primary">Tambah Data</a>
+                <a href="{{ route('tahapan.create') }}" class="m-0 font-weight-bold btn btn-primary">Tambah Data</a>
             </div>
             <div class="card-body">
                 @if (session('success'))
@@ -25,20 +25,18 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Nama Instansi</th>
-                                <th>Kode Instansi</th>
+                                <th>Nama Tahapan</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($instansi as $item)
+                            @foreach($tahapan as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->kode_instansi }}</td>
+                                    <td>{{ $item->nama }}</td>
                                     <td>
-                                        <a href="{{ route('instansi.edit', $item) }}" class="btn btn-primary btn-sm">Edit</a>
-                                        <form action="{{ route('instansi.destroy', $item) }}" method="POST" style="display: inline-block;">
+                                        <a href="{{ route('tahapan.edit', $item) }}" class="btn btn-primary btn-sm">Edit</a>
+                                        <form action="{{ route('tahapan.destroy', $item) }}" method="POST" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>
@@ -50,7 +48,7 @@
                     </table>
                 </div>
                 {{-- <div class="pagination justify-content-center">
-                    {{ $instansi->links() }}
+                    {{ $tahapan->links() }}
                 </div> --}}
             </div>
         </div>

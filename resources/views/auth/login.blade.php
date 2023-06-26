@@ -44,6 +44,14 @@
                         <h5 class="mb-0"><strong>Login Page</strong></h5>
                         <p class="text-muted mt-2">Sign in to continue to Dashboard.</p>
                     </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                            @foreach ($errors->all() as $error)
+                                {{ $error }}<br>
+                            @endforeach
+                        </div>
+                    @endif
+
                     <form method="POST" action="{{ route('login') }}" class="user">
                         @csrf
                         <div class="form-group">

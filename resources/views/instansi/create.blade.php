@@ -16,6 +16,10 @@
                         <label for="name">Nama Instansi</label>
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
+                    <div class="form-group">
+                        <label for="kode_instansi">Kode Instansi</label>
+                        <input type="text" class="form-control" id="kode_instansi" name="kode_instansi" required>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Simpan</button>

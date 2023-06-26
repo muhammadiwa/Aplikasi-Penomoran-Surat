@@ -45,6 +45,10 @@ class ProjekController extends Controller
             'id_instansi' => 'required',
             'id_perusahaan' => 'required',
             'keterangan' => 'required',
+            'nilai_pagu' => 'required',
+            'id_tahapan' => 'required',
+            'nilai_spk' => 'required',
+            'budget_limit' => 'required',
         ]);
 
         // Mendapatkan id_perusahaan
@@ -126,6 +130,10 @@ class ProjekController extends Controller
             'id_instansi' => 'required',
             'id_perusahaan' => 'required',
             'keterangan' => 'required',
+            'nilai_pagu' => 'required',
+            'id_tahapan' => 'required',
+            'nilai_spk' => 'required',
+            'budget_limit' => 'required',
         ]);
 
         $projek->update($validatedData);
