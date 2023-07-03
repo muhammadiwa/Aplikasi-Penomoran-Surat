@@ -29,6 +29,10 @@
                                 <th>Nama Projek</th>
                                 <th>Instansi</th>
                                 <th>Perusahaan</th>
+                                <th>Nilai Pagu/HVS</th>
+                                <th>Tahapan</th>
+                                <th>SPK/PO/KONTRAK</th>
+                                <th>Budget Limit</th>
                                 <th>Keterangan</th>
                                 <th>Action</th>
                             </tr>
@@ -39,8 +43,12 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->id_projek }}</td>
                                     <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->instansi->name }}</td>
-                                    <td>{{ $item->perusahaan->nama }}</td>
+                                    <td>{{ optional($item->instansi)->name }}</td>
+                                    <td>{{ optional($item->perusahaan)->nama }}</td>
+                                    <td>RP. {{ number_format(floatval($item->nilai_pagu), 0, ',', '.') }}</td>
+                                    <td>{{ optional($item->tahapan)->nama }}</td>
+                                    <td>{{ $item->nilai_spk }}</td>
+                                    <td>RP. {{ number_format(floatval($item->budget_limit), 0, ',', '.') }}</td>
                                     <td>{{ $item->keterangan }}</td>
                                     <td>
                                         <a href="{{ route('projek.edit', $item) }}" class="btn btn-primary btn-sm">Edit</a>

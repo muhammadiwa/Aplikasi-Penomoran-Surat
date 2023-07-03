@@ -10,6 +10,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KodeSuratController;
 use App\Http\Controllers\PerusahaanController;
 
+Route::redirect('/', '/dashboard');
+
 // Rute untuk login dan forgot password
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);

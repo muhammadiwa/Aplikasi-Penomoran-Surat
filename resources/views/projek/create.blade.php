@@ -33,6 +33,36 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="nilai_pagu">Nilai Pagu</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">RP.</span>
+                            </div>
+                            <input type="text" class="form-control" id="nilai_pagu" name="nilai_pagu" value="{{ number_format(old('nilai_pagu', 0), 0, ',', '.') }}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_tahapan">Tahapan</label>
+                        <select class="form-control" id="id_tahapan" name="id_tahapan" required>
+                            @foreach ($tahapan as $item)
+                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nilai_spk">SPK/PO/KONTRAK</label>
+                        <input type="text" class="form-control" id="nilai_spk" value="-" name="nilai_spk" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="budget_limit">Budget Limit</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">RP.</span>
+                            </div>
+                            <input type="text" class="form-control" id="budget_limit" value="{{ number_format(old('nilai_pagu', 0), 0, ',', '.') }}" name="budget_limit" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="keterangan">Keterangan</label>
                         <input type="text" class="form-control" id="keterangan" value="-" name="keterangan" required>
                     </div>

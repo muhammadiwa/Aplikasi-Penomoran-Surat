@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('kode_surat')->constrained('kode_surat');
             $table->foreignId('id_projek')->constrained('projek');
-            $table->foreignId('id_perusahaan')->constrained('perusahaan');
-            $table->foreignId('id_instansi')->constrained('instansi');
-            $table->date('bulan_pengajuan');
-            $table->date('tahun_pengajuan');
+            $table->foreignId('id_perusahaan')->constrained('projek');
+            $table->foreignId('id_instansi')->constrained('projek');
+            $table->string('id_bulan');
+            $table->string('id_tahun');
             $table->text('keterangan');
             $table->text('keterangan_projek');
             $table->timestamps();

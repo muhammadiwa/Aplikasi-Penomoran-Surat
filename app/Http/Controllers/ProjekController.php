@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Projek;
+use App\Models\Tahapan;
 use App\Models\Instansi;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class ProjekController extends Controller
      */
     public function index()
     {
-        $projek = Projek::with(['instansi', 'perusahaan'])->get();
+        $projek = Projek::with(['instansi', 'perusahaan', 'tahapan'])->get();
         return view('projek.index', compact('projek'));
     }
 
@@ -27,9 +28,11 @@ class ProjekController extends Controller
      */
     public function create()
     {
+        $projek = Projek::all();
+        $tahapan = Tahapan::all();
         $instansi = Instansi::all();
         $perusahaan = Perusahaan::all();
-        return view('projek.create', compact('instansi', 'perusahaan'));
+        return view('projek.create', compact('projek','instansi', 'perusahaan', 'tahapan'));
     }
 
     /**
@@ -65,7 +68,7 @@ class ProjekController extends Controller
         // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya untuk id_perusahaan = 2
         $lastOr = $lastProjek ? intval(substr($lastProjek->id_projek, 4, 2)) : -1;
         $newOr = $lastOr < 0 ? 0 : ($lastOr + 1);
-         // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya untuk id_perusahaan = 2
+        // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya untuk id_perusahaan = 2
         $lastOrders = $lastProjek ? intval(substr($lastProjek->id_projek, 0, 2)) : -1;
         $newOrders = $lastOrders + 1;
 
@@ -94,6 +97,7 @@ class ProjekController extends Controller
 
         return redirect()->route('projek.index')->with('success', 'Data berhasil ditambahkan.');
     }
+
     /**
      * Display the specified resource.
      *
@@ -113,7 +117,10 @@ class ProjekController extends Controller
      */
     public function edit(Projek $projek)
     {
-        return view('projek.edit', compact('projek'));
+        $tahapan = Tahapan::all();
+        $instansi = Instansi::all();
+        $perusahaan = Perusahaan::all();
+        return view('projek.edit', compact('projek', 'tahapan', 'instansi', 'perusahaan'));
     }
 
     /**
@@ -135,6 +142,18 @@ class ProjekController extends Controller
             'nilai_spk' => 'required',
             'budget_limit' => 'required',
         ]);
+
+        // Menghapus simbol koma dan titik dari nilai pagu
+        $nilaiPagu = str_replace(',', '', $validatedData['nilai_pagu']);
+        $nilaiPagu = str_replace('.', '', $nilaiPagu);
+
+        // Menghapus simbol koma dan titik dari budget limit
+        $budgetLimit = str_replace(',', '', $validatedData['budget_limit']);
+        $budgetLimit = str_replace('.', '', $budgetLimit);
+
+        // Menyimpan nilai pagu dan budget limit yang telah diformat ke dalam database sebagai string
+        $validatedData['nilai_pagu'] = $nilaiPagu;
+        $validatedData['budget_limit'] = $budgetLimit;
 
         $projek->update($validatedData);
 

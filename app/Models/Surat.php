@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Bulan;
+use App\Models\Tahun;
 use App\Models\Projek;
 use App\Models\Instansi;
 use App\Models\KodeSurat;
@@ -20,12 +22,21 @@ class Surat extends Model
         'id_projek',
         'no_urut',
         'id_perusahaan',
-        'id_instansi',
-        'bulan_pengajuan',
-        'tahun_pengajuan',
+        'id_bulan',
+        'id_tahun',
         'keterangan',
         'keterangan_projek',
     ];
+
+    public function bulan()
+    {
+        return $this->belongsTo(Bulan::class, 'id_bulan');
+    }
+
+    public function tahun()
+    {
+        return $this->belongsTo(Tahun::class, 'id_tahun');
+    }
 
     public function kode_surat()
     {
@@ -37,13 +48,4 @@ class Surat extends Model
         return $this->belongsTo(Projek::class, 'id_projek');
     }
 
-    public function instansi()
-    {
-        return $this->belongsTo(Instansi::class, 'id_instansi');
-    }
-
-    public function perusahaan()
-    {
-        return $this->belongsTo(Perusahaan::class, 'id_perusahaan');
-    }
 }

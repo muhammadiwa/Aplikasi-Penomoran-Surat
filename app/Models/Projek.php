@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Surat;
 use App\Models\Instansi;
 use App\Models\Perusahaan;
 use Illuminate\Database\Eloquent\Model;
@@ -40,4 +41,5 @@ class Projek extends Model
     {
         return $this->belongsTo(Perusahaan::class, 'id_perusahaan');
     }
+    
 }
