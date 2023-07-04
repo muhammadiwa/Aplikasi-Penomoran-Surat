@@ -15,10 +15,16 @@ class ProjekController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projek = Projek::with(['instansi', 'perusahaan', 'tahapan'])->get();
-        return view('projek.index', compact('projek'));
+        $perusahaan = Perusahaan::all();
+        $projek = Projek::with(['instansi', 'perusahaan', 'tahapan'])
+            ->when($request->perusahaan, function ($query, $perusahaan) {
+                return $query->where('id_perusahaan', $perusahaan);
+            })
+            ->get();
+
+        return view('projek.index', compact('perusahaan', 'projek'));
     }
 
     /**

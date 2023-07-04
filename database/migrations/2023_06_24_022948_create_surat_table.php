@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreignId('id_projek')->constrained('projek');
             $table->foreignId('id_perusahaan')->constrained('projek');
             $table->foreignId('id_instansi')->constrained('projek');
-            $table->string('id_bulan');
-            $table->string('id_tahun');
+            $table->string('no_urut');
+            $table->string('bulan');
             $table->text('keterangan');
             $table->text('keterangan_projek');
             $table->timestamps();

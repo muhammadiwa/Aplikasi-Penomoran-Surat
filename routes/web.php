@@ -6,6 +6,7 @@ use App\Http\Controllers\SuratController;
 use App\Http\Controllers\ProjekController;
 use App\Http\Controllers\TahapanController;
 use App\Http\Controllers\InstansiController;
+use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KodeSuratController;
 use App\Http\Controllers\PerusahaanController;
@@ -28,10 +29,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/perusahaan', [PerusahaanController::class, 'index'])->name('perusahaan.index');
     Route::get('/perusahaan/create', [PerusahaanController::class, 'create'])->name('perusahaan.create');
     Route::post('/perusahaan', [PerusahaanController::class, 'store'])->name('perusahaan.store');
-    Route::get('/perusahaan/{perusahaan}', [PerusahaanController::class, 'show'])->name('perusahaan.show');
     Route::get('/perusahaan/{perusahaan}/edit', [PerusahaanController::class, 'edit'])->name('perusahaan.edit');
     Route::put('/perusahaan/{perusahaan}', [PerusahaanController::class, 'update'])->name('perusahaan.update');
     Route::delete('/perusahaan/{perusahaan}', [PerusahaanController::class, 'destroy'])->name('perusahaan.destroy');
+    //karyawan
+    Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
+    Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
+    Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
+    Route::get('/profile', [KaryawanController::class, 'show'])->name('profile');
+    Route::get('/karyawan/{karyawan}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
+    Route::put('/karyawan/{karyawan}', [KaryawanController::class, 'update'])->name('karyawan.update');
+    Route::delete('/karyawan/{karyawan}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
     //Instansi
     Route::get('/instansi', [InstansiController::class, 'index'])->name('instansi.index');
     Route::get('/instansi/create', [InstansiController::class, 'create'])->name('instansi.create');

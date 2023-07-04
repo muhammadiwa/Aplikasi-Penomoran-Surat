@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bulan;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Surat;
-use App\Models\Tahun;
 use App\Models\Projek;
+use App\Models\Instansi;
 use App\Models\KodeSurat;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
@@ -17,10 +18,14 @@ class SuratController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $surat = Surat::with(['kode_surat','projek'])->get();
-        return view('surat.index', compact('surat'));
+        $perusahaan = Perusahaan::all();
+        $surat = Surat::when($request->perusahaan, function ($query, $perusahaan) {
+            return $query->where('id_perusahaan', $perusahaan);
+        })->get();
+
+        return view('surat.index', compact('perusahaan', 'surat'));
     }
 
     /**
@@ -33,9 +38,8 @@ class SuratController extends Controller
         $kodesurat = KodeSurat::all();
         $projek = Projek::all();
         $perusahaan = Perusahaan::all();
-        $bulan = Bulan::all();
-        $tahun = Tahun::all();
-        return view('surat.create', compact('kodesurat','projek', 'perusahaan', 'bulan', 'tahun'));
+        $instansi = Instansi::all();
+        return view('surat.create', compact('kodesurat','projek', 'perusahaan', 'instansi'));
     }
 
     /**
@@ -49,8 +53,7 @@ class SuratController extends Controller
         $validatedData = $request->validate([
             'kode_surat' => 'required',
             'id_projek' => 'required',
-            'id_bulan' => 'required',
-            'id_tahun' => 'required',
+            'bulan' => 'required',
             'keterangan_projek' => 'required',
         ]);
 
@@ -74,25 +77,52 @@ class SuratController extends Controller
         $perusahaan = $projek->perusahaan;
         $instansi = $projek->instansi;
         $kodesurat = KodeSurat::find($validatedData['kode_surat']);
-        $bulan = Bulan::find($validatedData['id_bulan']);
-        $tahun = Tahun::find($validatedData['id_tahun']);
+        $bulan = Carbon::createFromFormat('Y-m', $validatedData['bulan'])->format('F');
+        $bulanRomawi = $this->convertToRoman($bulan);
+        $tahun = Carbon::createFromFormat('Y-m', $validatedData['bulan'])->format('Y');
 
         if ($projek->id_perusahaan == 1) {
-            $keterangan = "{$projek->no_projek}/{$noUrut}/{$perusahaan->kode_pt}/{$kodesurat->kode_surat}/{$instansi->kode_instansi}/{$bulan->kode_bulan}/{$tahun->tahun}";
+            $keterangan = "{$projek->no_projek}/{$noUrut}/{$perusahaan->kode_pt}/{$kodesurat->kode_surat}/{$instansi->kode_instansi}/{$bulanRomawi}/{$tahun}";
         } elseif ($projek->id_perusahaan == 2) {
-            $keterangan = "{$projek->no_projek}/{$noUrut}/{$perusahaan->kode_pt}/{$kodesurat->kode_surat}-{$instansi->kode_instansi}/{$bulan->kode_bulan}/{$tahun->tahun}";
+            $keterangan = "{$projek->no_projek}/{$noUrut}/{$perusahaan->kode_pt}/{$kodesurat->kode_surat}-{$instansi->kode_instansi}/{$bulanRomawi}/{$tahun}";
         } elseif ($projek->id_perusahaan == 3) {
-            $keterangan = "{$kodesurat->kode_surat}/{$projek->no_projek}.{$noUrut}/{$perusahaan->kode_pt}-{$instansi->kode_instansi}/{$bulan->kode_bulan}/{$tahun->tahun}";
+            $keterangan = "{$kodesurat->kode_surat}/{$projek->no_projek}.{$noUrut}/{$perusahaan->kode_pt}-{$instansi->kode_instansi}/{$bulanRomawi}/{$tahun}";
         }
 
+        $validatedData['id_instansi'] = $projek->id_instansi;
         $validatedData['id_perusahaan'] = $projek->id_perusahaan;
         $validatedData['no_urut'] = $noUrut;
         $validatedData['keterangan'] = $keterangan;
+        $user = auth()->user();
+        $validatedData['user_id'] = $user->id;
+        $validatedData['bulan'] = $bulanRomawi;
+
 
         Surat::create($validatedData);
 
         return redirect()->route('surat.index')->with('success', 'Surat berhasil dibuat.');
     }
+
+    private function convertToRoman($month)
+    {
+        $romawi = [
+            'January' => 'I',
+            'February' => 'II',
+            'March' => 'III',
+            'April' => 'IV',
+            'May' => 'V',
+            'June' => 'VI',
+            'July' => 'VII',
+            'August' => 'VIII',
+            'September' => 'IX',
+            'October' => 'X',
+            'November' => 'XI',
+            'December' => 'XII',
+        ];
+
+        return $romawi[$month];
+    }
+
 
 
 
@@ -115,12 +145,7 @@ class SuratController extends Controller
      */
     public function edit(Surat $surat)
     {
-        $kodesurat = KodeSurat::all();
-        $projek = Projek::all();
-        $perusahaan = Perusahaan::all();
-        $bulan = Bulan::all();
-        $tahun = Tahun::all();
-        return view('surat.edit', compact('surat', 'kodesurat', 'projek', 'perusahaan', 'bulan', 'tahun'));
+        return view('surat.edit', compact('surat'));
     }
 
     /**
@@ -133,7 +158,7 @@ class SuratController extends Controller
     public function update(Request $request, Surat $surat)
     {
         $validatedData = $request->validate([
-            'name' => 'required',
+            'keterangan_projek' => 'required',
         ]);
 
         $surat->update($validatedData);

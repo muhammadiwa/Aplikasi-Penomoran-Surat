@@ -32,7 +32,7 @@ class PerusahaanController extends Controller
 
     public function show(Perusahaan $perusahaan)
     {
-        return view('perusahaan.show', compact('perusahaan'));
+        //
     }
 
     public function edit(Perusahaan $perusahaan)

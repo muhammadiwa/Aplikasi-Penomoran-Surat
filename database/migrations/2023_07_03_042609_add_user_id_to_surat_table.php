@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bulan', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('kode_bulan');
-            $table->timestamps();
+        Schema::table('surat', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->nullable()->default(null);
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -28,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bulan');
+        Schema::table('surat', function (Blueprint $table) {
+            $table->dropColumn('user_id');
+        });
     }
 };

@@ -12,10 +12,6 @@
             @csrf
             <div class="card shadow mb-4">
                 <div class="card-body">
-                    {{-- <div class="form-group">
-                        <label for="nama">Nama surat</label>
-                        <input type="text" class="form-control" id="nama" name="nama" required>
-                    </div> --}}
                     <div class="form-group">
                         <label for="kode_surat">Kode Surat</label>
                         <select class="form-control" id="kode_surat" name="kode_surat" required>
@@ -33,37 +29,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="id_bulan">Bulan</label>
-                        <select class="form-control" id="id_bulan" name="id_bulan" required>
-                            @foreach ($bulan as $item)
-                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                            @endforeach
-                        </select>
+                        <label for="bulan">Bulan</label>
+                        <input type="month" class="form-control" name="bulan" id="bulan">
                     </div>
-                    <div class="form-group">
-                        <label for="id_tahun">Tahun</label>
-                        <select class="form-control" id="id_tahun" name="id_tahun" required>
-                            @foreach ($tahun as $item)
-                                <option value="{{ $item->id }}">{{ $item->tahun }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    {{-- <div class="form-group">
-                        <label for="id_instansi">Instansi</label>
-                        <select class="form-control" id="id_instansi" name="id_instansi" required>
-                            @foreach ($instansi as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_perusahaan">Perusahaan</label>
-                        <select class="form-control" id="id_perusahaan" name="id_perusahaan" required>
-                            @foreach ($perusahaan as $item)
-                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                            @endforeach
-                        </select>
-                    </div> --}}
                     <div class="form-group">
                         <label for="keterangan_projek">Keterangan</label>
                         <input type="text" class="form-control" id="keterangan" value="-" name="keterangan_projek" required>

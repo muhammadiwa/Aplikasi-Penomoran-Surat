@@ -1,28 +1,28 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Kode Surat')
+@section('title', 'Edit Surat')
 
 @section('content')
     <div class="container-fluid">
+        <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">@yield('title')</h1>
 
-        <div class="card shadow">
-            <div class="card-body">
-                <form action="{{ route('kodesurat.update', $kodesurat) }}" method="POST">
-                    @csrf
-                    @method('PUT')
+        <!-- Form -->
+        <form action="{{ route('surat.update', $surat->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="card shadow mb-4">
+                <div class="card-body">
                     <div class="form-group">
-                        <label for="nama">Nama</label>
-                        <input type="text" class="form-control" id="nama" name="nama" value="{{ $kodesurat->nama }}" required>
+                        <label for="keterangan_projek">Keterangan</label>
+                        <input type="text" class="form-control" id="keterangan" value="{{ $surat->keterangan_projek }}" name="keterangan_projek" required>
                     </div>
-                    <div class="form-group">
-                        <label for="kode_surat">Kode Surat</label>
-                        <input type="text" class="form-control" id="kode_surat" name="kode_surat" value="{{ $kodesurat->kode_surat }}" required>
-                    </div>
+                </div>
+                <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Simpan</button>
-                    <a href="{{ route('kodesurat.index') }}" class="btn btn-secondary">Batal</a>
-                </form>
+                    <a href="{{ route('surat.index') }}" class="btn btn-secondary">Kembali</a>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 @endsection

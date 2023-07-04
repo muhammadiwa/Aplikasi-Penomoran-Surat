@@ -9,6 +9,18 @@
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">@yield('title')</h1>
 
+        <!-- Navtabs -->
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link {{ !request()->has('perusahaan') ? 'active' : '' }}" href="{{ route('projek.index') }}">Semua</a>
+            </li>
+            @foreach($perusahaan as $item)
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->perusahaan == $item->id ? 'active' : '' }}" href="{{ route('projek.index', ['perusahaan' => $item->id]) }}">{{ $item->nama }}</a>
+                </li>
+            @endforeach
+        </ul>
+
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
