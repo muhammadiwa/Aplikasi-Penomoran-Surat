@@ -7,10 +7,15 @@ use Illuminate\Http\Request;
 
 class KaryawanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $karyawan = User::all();
-        return view('karyawan.index', compact('karyawan'));
+        $keyword = $request->input('keyword');
+        $karyawan = User::when($keyword, function ($query) use ($keyword) {
+            $query->where('name', 'like', '%' . $keyword . '%')
+                ->orWhere('email', 'like', '%' . $keyword . '%');
+        })->paginate(10);
+
+        return view('karyawan.index', compact('karyawan', 'keyword'));
     }
 
     public function create()

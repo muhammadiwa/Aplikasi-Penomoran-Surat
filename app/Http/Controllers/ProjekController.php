@@ -17,15 +17,32 @@ class ProjekController extends Controller
      */
     public function index(Request $request)
     {
+        $keyword = $request->input('keyword');
         $perusahaan = Perusahaan::all();
         $projek = Projek::with(['instansi', 'perusahaan', 'tahapan'])
             ->when($request->perusahaan, function ($query, $perusahaan) {
                 return $query->where('id_perusahaan', $perusahaan);
             })
-            ->get();
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where(function ($query) use ($keyword) {
+                    $query->where('nama', 'like', '%' . $keyword . '%')
+                        ->orWhere('id_projek', 'like', '%' . $keyword . '%')
+                        ->orWhereHas('instansi', function ($query) use ($keyword) {
+                        $query->where('name', 'like', '%' . $keyword . '%');
+                        })
+                        ->orWhereHas('perusahaan', function ($query) use ($keyword) {
+                            $query->where('nama', 'like', '%' . $keyword . '%');
+                        })
+                        ->orWhereHas('tahapan', function ($query) use ($keyword) {
+                            $query->where('nama', 'like', '%' . $keyword . '%');
+                        });
+                });
+            })
+            ->paginate(10);
 
-        return view('projek.index', compact('perusahaan', 'projek'));
+        return view('projek.index', compact('perusahaan', 'projek', 'keyword'));
     }
+
 
     /**
      * Show the form for creating a new resource.

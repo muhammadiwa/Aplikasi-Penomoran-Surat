@@ -24,7 +24,23 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <a href="{{ route('projek.create') }}" class="m-0 font-weight-bold btn btn-primary">Tambah Data</a>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{{ route('projek.create') }}" class="m-0 font-weight-bold btn btn-primary">Tambah Data</a>
+                    </div>
+                    <div class="col-md-6">
+                        <form action="{{ route('projek.index') }}" method="GET" class="form-inline float-right">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="keyword" placeholder="Cari..." value="{{ $keyword }}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 @if (session('success'))
@@ -76,6 +92,7 @@
                     </table>
                 </div>
             </div>
+            {!! $projek->withQueryString()->links('pagination::bootstrap-5') !!}
         </div>
     </div>
     <!-- /.container-fluid -->

@@ -20,12 +20,22 @@ class SuratController extends Controller
      */
     public function index(Request $request)
     {
+        $keyword = $request->input('keyword');
         $perusahaan = Perusahaan::all();
         $surat = Surat::when($request->perusahaan, function ($query, $perusahaan) {
             return $query->where('id_perusahaan', $perusahaan);
-        })->get();
+        })
+        ->when($keyword, function ($query) use ($keyword) {
+            $query->where(function ($query) use ($keyword) {
+                $query->where('keterangan', 'like', '%' . $keyword . '%')
+                    ->orWhere('keterangan_projek', 'like', '%' . $keyword . '%')
+                    ->orWhereHas('createdBy', function ($query) use ($keyword) {
+                        $query->where('name', 'like', '%' . $keyword . '%');
+                    });
+            });
+        })->paginate(10);
 
-        return view('surat.index', compact('perusahaan', 'surat'));
+        return view('surat.index', compact('perusahaan', 'surat', 'keyword'));
     }
 
     /**

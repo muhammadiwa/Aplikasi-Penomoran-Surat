@@ -36,9 +36,18 @@
                 <a class="collapse-item" href="{{ route('instansi.index') }}">Data Instansi</a>
                 <a class="collapse-item" href="{{ route('tahapan.index') }}">Data Tahapan</a>
                 <a class="collapse-item" href="{{ route('kodesurat.index') }}">Data Kode Surat</a>
-                <a class="collapse-item" href="{{ route('projek.index') }}">Data Projek</a>
             </div>
         </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('projek.index') }}">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Projek</span></a>
     </li>
 
     <!-- Divider -->

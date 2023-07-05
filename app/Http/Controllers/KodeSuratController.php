@@ -12,10 +12,14 @@ class KodeSuratController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $kodesurat = KodeSurat::all();
-        return view('kodesurat.index', compact('kodesurat'));
+        $keyword = $request->input('keyword');
+        $kodesurat = KodeSurat::when($keyword, function ($query) use ($keyword) {
+            $query->where('nama', 'like', '%' . $keyword . '%')
+                ->orWhere('kode_surat', 'like', '%' . $keyword . '%');
+        })->paginate(10);
+        return view('kodesurat.index', compact('kodesurat', 'keyword'));
     }
 
     /**

@@ -12,10 +12,14 @@ class InstansiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $instansi = Instansi::all();
-        return view('instansi.index', compact('instansi'));
+        $keyword = $request->input('keyword');
+        $instansi = Instansi::when($keyword, function ($query) use ($keyword) {
+            $query->where('name', 'like', '%' . $keyword . '%')
+                ->orWhere('kode_instansi', 'like', '%' . $keyword . '%');
+        })->paginate(10);
+        return view('instansi.index', compact('instansi', 'keyword'));
     }
 
     /**

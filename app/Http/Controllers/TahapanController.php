@@ -12,10 +12,13 @@ class TahapanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tahapan = Tahapan::all();
-        return view('tahapan.index', compact('tahapan'));
+        $keyword = $request->input('keyword');
+        $tahapan = Tahapan::when($keyword, function ($query) use ($keyword) {
+            $query->where('nama', 'like', '%' . $keyword . '%');
+        })->paginate(10);
+        return view('tahapan.index', compact('tahapan', 'keyword'));
     }
 
     /**

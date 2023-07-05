@@ -7,10 +7,14 @@ use Illuminate\Http\Request;
 
 class PerusahaanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $perusahaan = Perusahaan::all();
-        return view('perusahaan.index', compact('perusahaan'));
+        $keyword = $request->input('keyword');
+        $perusahaan = Perusahaan::when($keyword, function ($query) use ($keyword) {
+            $query->where('nama', 'like', '%' . $keyword . '%')
+                ->orWhere('kode_pt', 'like', '%' . $keyword . '%');
+        })->paginate(10);
+        return view('perusahaan.index', compact('perusahaan', 'keyword'));
     }
 
     public function create()
