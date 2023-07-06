@@ -13,7 +13,7 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::when($keyword, function ($query) use ($keyword) {
             $query->where('nama', 'like', '%' . $keyword . '%')
                 ->orWhere('kode_pt', 'like', '%' . $keyword . '%');
-        })->paginate(10);
+        })->get();
         return view('perusahaan.index', compact('perusahaan', 'keyword'));
     }
 

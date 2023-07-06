@@ -17,7 +17,7 @@ class TahapanController extends Controller
         $keyword = $request->input('keyword');
         $tahapan = Tahapan::when($keyword, function ($query) use ($keyword) {
             $query->where('nama', 'like', '%' . $keyword . '%');
-        })->paginate(10);
+        })->get();
         return view('tahapan.index', compact('tahapan', 'keyword'));
     }
 

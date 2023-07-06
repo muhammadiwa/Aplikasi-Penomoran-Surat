@@ -13,7 +13,7 @@ class KaryawanController extends Controller
         $karyawan = User::when($keyword, function ($query) use ($keyword) {
             $query->where('name', 'like', '%' . $keyword . '%')
                 ->orWhere('email', 'like', '%' . $keyword . '%');
-        })->paginate(10);
+        })->get();
 
         return view('karyawan.index', compact('karyawan', 'keyword'));
     }

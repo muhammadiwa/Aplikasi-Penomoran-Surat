@@ -18,7 +18,7 @@ class InstansiController extends Controller
         $instansi = Instansi::when($keyword, function ($query) use ($keyword) {
             $query->where('name', 'like', '%' . $keyword . '%')
                 ->orWhere('kode_instansi', 'like', '%' . $keyword . '%');
-        })->paginate(10);
+        })->get();
         return view('instansi.index', compact('instansi', 'keyword'));
     }
 

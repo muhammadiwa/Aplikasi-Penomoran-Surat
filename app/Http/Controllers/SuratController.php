@@ -33,7 +33,7 @@ class SuratController extends Controller
                         $query->where('name', 'like', '%' . $keyword . '%');
                     });
             });
-        })->paginate(10);
+        })->get();
 
         return view('surat.index', compact('perusahaan', 'surat', 'keyword'));
     }

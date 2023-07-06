@@ -16,7 +16,7 @@
                     <div class="col-md-6">
                         <a href="{{ route('instansi.create') }}" class="m-0 font-weight-bold btn btn-primary">Tambah Data</a>
                     </div>
-                    <div class="col-md-6">
+                    {{-- <div class="col-md-6">
                         <form action="{{ route('instansi.index') }}" method="GET" class="form-inline float-right">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="keyword" placeholder="Cari..." value="{{ $keyword }}">
@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="card-body">
@@ -40,9 +40,9 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>No.</th>
-                                <th>Nama Instansi</th>
-                                <th>Kode Instansi</th>
+                                <th data-sortable="true">No.</th>
+                                <th data-sortable="true">Nama Instansi</th>
+                                <th data-sortable="true">Kode Instansi</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -65,7 +65,7 @@
                         </tbody>
                     </table>
                 </div>
-                {!! $instansi->withQueryString()->links('pagination::bootstrap-5') !!}
+                {{-- {!! $instansi->withQueryString()->links('pagination::bootstrap-5') !!} --}}
             </div>
         </div>
     </div>

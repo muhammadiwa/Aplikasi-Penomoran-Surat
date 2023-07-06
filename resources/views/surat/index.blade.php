@@ -28,7 +28,7 @@
                     <div class="col-md-6">
                         <a href="{{ route('surat.create') }}" class="m-0 font-weight-bold btn btn-primary">Tambah Data</a>
                     </div>
-                    <div class="col-md-6">
+                    {{-- <div class="col-md-6">
                         <form action="{{ route('surat.index') }}" method="GET" class="form-inline float-right">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="keyword" placeholder="Cari..." value="{{ $keyword }}">
@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="card-body">
@@ -52,11 +52,11 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>No.</th>
-                                <th>Nomor Surat</th>
-                                <th>Keterangan</th>
-                                <th>Pembuat</th>
-                                <th>Tanggal</th>
+                                <th data-sortable="true">No.</th>
+                                <th data-sortable="true">Nomor Surat</th>
+                                <th data-sortable="true">Keterangan</th>
+                                <th data-sortable="true">Pembuat</th>
+                                <th data-sortable="true">Tanggal</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -73,7 +73,7 @@
                                         <form action="{{ route('surat.destroy', $item) }}" method="POST" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</<button>
                                         </form>
                                     </td>
                                 </tr>
@@ -82,23 +82,13 @@
                     </table>
                 </div>
                 <div>
-                    {!! $surat->withQueryString()->links('pagination::bootstrap-5') !!}
+                    {{-- {!! $surat->withQueryString()->links('pagination::bootstrap-5') !!} --}}
                 </div>
             </div>
         </div>
     </div>
     <!-- /.container-fluid -->
+    <!-- Page level custom scripts -->
+    
 @endsection
 
-@push('scripts')
-    <!-- DataTables -->
-    <script src="{{ asset('/sbadmin2/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('/sbadmin2/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-
-    <!-- Page level custom scripts -->
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
-    </script>
-@endpush

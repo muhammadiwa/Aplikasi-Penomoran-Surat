@@ -18,7 +18,7 @@ class KodeSuratController extends Controller
         $kodesurat = KodeSurat::when($keyword, function ($query) use ($keyword) {
             $query->where('nama', 'like', '%' . $keyword . '%')
                 ->orWhere('kode_surat', 'like', '%' . $keyword . '%');
-        })->paginate(10);
+        })->get();
         return view('kodesurat.index', compact('kodesurat', 'keyword'));
     }
 

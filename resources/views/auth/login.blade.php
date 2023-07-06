@@ -30,19 +30,36 @@
             padding-bottom: 40px;
             background-color: #f8f9fc;
         }
+        h5 {
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+            margin-top: 40px;
+            color: #333;
+        }
+
+        p {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+            margin-top: 40px;
+            color: #333;
+        }
     </style>
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="">
 <div class="container">
     <div class="d-flex justify-content-center">
         <div class="card o-hidden border-0 shadow-lg my-5 w-50">
             <div class="card-body p-0">
                 <div class="p-5">
                     <div class="text-center">
-                        <h5 class="mb-0"><strong>Login Page</strong></h5>
-                        <p class="text-muted mt-2">Sign in to continue to Dashboard.</p>
+                        <h5 class="mb-0"><strong>Aplikasi Penomoran Surat</strong></h5>
+                        <p class="text-muted mt-2">Silahkan Login</p>
                     </div>
                     @if ($errors->any())
                         <div class="alert alert-danger" role="alert">

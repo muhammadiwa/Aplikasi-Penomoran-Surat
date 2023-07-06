@@ -11,15 +11,34 @@
     <title>@yield('title')</title>
 
     <!-- Custom fonts for this template-->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link href="{{ asset('/sbadmin2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <!-- Custom styles for this template-->
     <link href="{{ asset('/sbadmin2/css/sb-admin-2.min.css') }}" rel="stylesheet">
     
 </head>
+<style>
+    table.dataTable {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+    }
+    
+    table.dataTable thead th,
+    table.dataTable tfoot th {
+        border-bottom: 2px solid #dee2e6;
+    }
+    
+    table.dataTable tbody td {
+        border-bottom: 1px solid #dee2e6;
+    }
+</style>
+
 
 <body id="page-top">
 
@@ -41,7 +60,7 @@
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
+                        <i class="fas fa-bars"></i>
                     </button>
 
                     <!-- Topbar Navbar -->
@@ -119,7 +138,7 @@
         </div>
     </div>
 
-    
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('/sbadmin2/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -135,24 +154,20 @@
 
     <!-- Page level custom scripts -->
     <script src="{{ asset('/sbadmin2/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('/sbadmin2/js/demo/chart-pie-demo.js') }}"></script>
+    {{-- <script src="{{ asset('/sbadmin2/js/demo/chart-pie-demo.js') }}"></script> --}}
+    {{-- <script src="{{ asset('/sbadmin2/js/demo/chart-bar-demo.js') }}"></script> --}}
+
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script>
-    // Mendapatkan semua elemen menu sidebar
-    var sidebarMenus = document.querySelectorAll('.sidebar .nav-link');
-
-    // Mengaitkan event click pada setiap elemen menu
-    sidebarMenus.forEach(function(menu) {
-        menu.addEventListener('click', function() {
-            // Menghapus kelas 'active' dari semua elemen menu
-            sidebarMenus.forEach(function(item) {
-                item.classList.remove('active');
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                columnDefs: [
+                    { targets: 'sortable', orderable: true }
+                ]
             });
-
-            // Menambahkan kelas 'active' ke elemen menu yang diklik
-            this.classList.add('active');
         });
-    });
     </script>
+
 
 </body>
 
