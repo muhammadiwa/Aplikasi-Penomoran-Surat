@@ -27,19 +27,34 @@ class Projek extends Model
         'keterangan',
     ];
 
+    public function kode_surat()
+    {
+        return $this->belongsTo(KodeSurat::class, 'kode_surat');
+    }
+
+    public function projek()
+    {
+        return $this->belongsTo(Projek::class, 'id_projek');
+    }
+
     public function instansi()
     {
         return $this->belongsTo(Instansi::class, 'id_instansi');
-    }
-    
-    public function tahapan()
-    {
-        return $this->belongsTo(Tahapan::class, 'id_tahapan');
     }
 
     public function perusahaan()
     {
         return $this->belongsTo(Perusahaan::class, 'id_perusahaan');
+    }
+
+    public function tahapan ()
+    {
+        return $this->belongsTo(Tahapan::class, 'id_tahapan');
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
     
 }

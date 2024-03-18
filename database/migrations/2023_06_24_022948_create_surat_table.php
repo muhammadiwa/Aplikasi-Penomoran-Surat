@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('surat', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kode_surat')->constrained('kode_surat');
-            $table->foreignId('id_projek')->constrained('projek');
-            $table->foreignId('id_perusahaan')->constrained('projek');
-            $table->foreignId('id_instansi')->constrained('projek');
+            $table->integer('kode_surat')->nullable();
+            $table->integer('id_projek')->nullable();
+            $table->integer('id_perusahaan')->nullable();
+            $table->integer('id_instansi')->nullable();
             $table->string('no_urut');
             $table->string('bulan');
             $table->text('keterangan');

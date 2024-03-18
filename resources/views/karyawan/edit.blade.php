@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Perusahaan')
+@section('title', 'Edit Data Staff')
 
 @section('content')
     <div class="container-fluid">
@@ -12,7 +12,7 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label for="name">Nama karyawan</label>
+                        <label for="name">Nama</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{ $karyawan->name }}" required>
                     </div>
                     <div class="form-group">

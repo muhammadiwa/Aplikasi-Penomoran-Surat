@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Karyawan')
+@section('title', 'Tambah Data Staff')
 
 @section('content')
     <div class="container-fluid">
@@ -22,7 +22,7 @@
                         </div>
                     @endif
                     <div class="form-group">
-                        <label for="name">Nama Karyawan</label>
+                        <label for="name">Nama</label>
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
                     <div class="form-group">

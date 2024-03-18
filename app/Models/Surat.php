@@ -38,6 +38,16 @@ class Surat extends Model
         return $this->belongsTo(Projek::class, 'id_projek');
     }
 
+    public function instansi()
+    {
+        return $this->belongsTo(Instansi::class, 'id_instansi');
+    }
+
+    public function perusahaan()
+    {
+        return $this->belongsTo(Perusahaan::class, 'id_perusahaan');
+    }
+
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'user_id');

@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('projek', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->foreignId('id_instansi')->constrained('instansi');
-            $table->unsignedBigInteger('id_perusahaan')->nullable();
-            $table->foreign('id_perusahaan')->references('id')->on('perusahaan');   
+            $table->integer('id_instansi')->nullable();
+            $table->integer('id_perusahaan')->nullable();
             $table->string('keterangan');
             $table->timestamps();
         });
