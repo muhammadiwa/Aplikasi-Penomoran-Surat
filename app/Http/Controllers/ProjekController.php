@@ -7,6 +7,7 @@ use App\Models\Tahapan;
 use App\Models\Instansi;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class ProjekController extends Controller
 {
@@ -77,6 +78,8 @@ class ProjekController extends Controller
             'budget_limit' => 'required',
         ]);
 
+        // Mendapatkan dua digit terakhir dari tahun saat ini
+        $currentYear = date('y');
         // Mendapatkan id_perusahaan
         $idPerusahaan = $validatedData['id_perusahaan'];
 
@@ -85,18 +88,29 @@ class ProjekController extends Controller
             ->orderBy('id_projek', 'desc')
             ->first();
 
-        // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya
+        $currentProject = Projek::where('id_perusahaan', $idPerusahaan)
+            ->where('id_instansi', 1)
+            ->where('id_projek', 'like', '%' . $currentYear . '%')
+            ->get();        
+        
+
+        // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya untuk id_perusahaan = 1
         $lastOrder = $lastProjek ? intval(substr($lastProjek->id_projek, -3)) : -1;
         $newOrder = $lastOrder + 1;
         // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya untuk id_perusahaan = 2
         $lastOr = $lastProjek ? intval(substr($lastProjek->id_projek, 4, 2)) : -1;
         $newOr = $lastOr < 0 ? 0 : ($lastOr + 1);
-        // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya untuk id_perusahaan = 2
+        // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya untuk id_perusahaan = 3
         $lastOrders = $lastProjek ? intval(substr($lastProjek->id_projek, 0, 2)) : -1;
         $newOrders = $lastOrders + 1;
 
-        // Mendapatkan dua digit terakhir dari tahun saat ini
-        $currentYear = date('y');
+        if ($currentProject->isEmpty()) {
+            $newOrder = 0;
+            $newOr = 0;
+            $newOrders = 0;
+        }
+
+        // dd($newOrder, $newOr, $newOrders);
 
         // Membentuk ID proyek berdasarkan id_perusahaan
         $projectId = '';
