@@ -88,6 +88,7 @@ class ProjekController extends Controller
             ->orderBy('id_projek', 'desc')
             ->first();
 
+
         $currentProject = Projek::where('id_perusahaan', $idPerusahaan)
             ->where('id_instansi', 1)
             ->where('id_projek', 'like', '%' . $currentYear . '%')
@@ -95,7 +96,7 @@ class ProjekController extends Controller
         
 
         // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya untuk id_perusahaan = 1
-        $lastOrder = $lastProjek ? intval(substr($lastProjek->id_projek, -3)) : -1;
+        $lastOrder = $lastProjek ? intval(substr($lastProjek->id_projek, -2)) : -1;
         $newOrder = $lastOrder + 1;
         // Mendapatkan urutan terakhir dan menentukan nomor urut berikutnya untuk id_perusahaan = 2
         $lastOr = $lastProjek ? intval(substr($lastProjek->id_projek, 4, 2)) : -1;
@@ -110,7 +111,7 @@ class ProjekController extends Controller
             $newOrders = 0;
         }
 
-        // dd($newOrder, $newOr, $newOrders);
+
 
         // Membentuk ID proyek berdasarkan id_perusahaan
         $projectId = '';
