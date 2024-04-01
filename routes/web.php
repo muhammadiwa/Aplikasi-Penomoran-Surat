@@ -76,5 +76,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/surat/{surat}/edit', [SuratController::class, 'edit'])->name('surat.edit');
     Route::put('/surat/{surat}', [SuratController::class, 'update'])->name('surat.update');
     Route::delete('/surat/{surat}', [SuratController::class, 'destroy'])->name('surat.destroy');
+
+    Route::get('/get-projek/{id_perusahaan}', [SuratController::class, 'getProjectsByPerusahaan'])->name('get-projek');
 });
 

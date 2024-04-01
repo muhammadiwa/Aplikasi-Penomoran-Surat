@@ -168,6 +168,7 @@
         });
     </script>
 
+@yield('js')
 
 </body>
 

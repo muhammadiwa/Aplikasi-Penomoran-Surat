@@ -47,9 +47,15 @@ class SuratController extends Controller
     {
         $kodesurat = KodeSurat::all();
         $projek = Projek::all();
-        $perusahaan = Perusahaan::all();
+        $perusahaans = Perusahaan::all();
         $instansi = Instansi::all();
-        return view('surat.create', compact('kodesurat','projek', 'perusahaan', 'instansi'));
+        return view('surat.create', compact('kodesurat','projek', 'perusahaans', 'instansi'));
+    }
+
+    public function getProjectsByPerusahaan($id_perusahaan)
+    {
+        $projeks = Projek::where('id_perusahaan', $id_perusahaan)->get();
+        return response()->json($projeks);
     }
 
     /**
