@@ -66,6 +66,7 @@ class SuratController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $validatedData = $request->validate([
             'kode_surat' => 'required',
             'id_projek' => 'required',
@@ -103,6 +104,8 @@ class SuratController extends Controller
             $keterangan = "{$projek->no_projek}/{$noUrut}/{$perusahaan->kode_pt}/{$kodesurat->kode_surat}-{$instansi->kode_instansi}/{$bulanRomawi}/{$tahun}";
         } elseif ($projek->id_perusahaan == 3) {
             $keterangan = "{$kodesurat->kode_surat}/{$projek->no_projek}.{$noUrut}/{$perusahaan->kode_pt}-{$instansi->kode_instansi}/{$bulanRomawi}/{$tahun}";
+        } else {
+            $keterangan = "{$kodesurat->kode_surat}-{$projek->no_projek}/{$noUrut}/{$perusahaan->kode_pt}-{$instansi->kode_instansi}/{$bulanRomawi}/{$tahun}";
         }
 
         $validatedData['id_instansi'] = $projek->id_instansi;

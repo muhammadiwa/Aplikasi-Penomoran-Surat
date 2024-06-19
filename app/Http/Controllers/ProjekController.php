@@ -126,6 +126,9 @@ class ProjekController extends Controller
         } elseif ($idPerusahaan == 3) {
             $projectId = sprintf('%02d', $newOrders) . '/EPSI/' . $currentYear;
             $noProject = sprintf('%02d', $newOrders);
+        } else {
+            $projectId = sprintf('%02d', $newOrders) . '/MLK/' . $currentYear;
+            $noProject = sprintf('%02d', $newOrders);
         }
 
         $validatedData['id_projek'] = $projectId;
